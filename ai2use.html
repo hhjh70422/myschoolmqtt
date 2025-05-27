@@ -15,6 +15,7 @@
 
       client.connect({
         onSuccess: function() {
+          alert("成功連接到 MQTT broker");
           client.subscribe("mqtt/FALL_REAL"); // 你要訂閱的 topic
         }
       });
