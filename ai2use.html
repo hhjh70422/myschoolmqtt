@@ -14,14 +14,17 @@
 
 
       client.connect({
-        onSuccess: function() {
-          alert("成功連接到 MQTT broker");
-          client.subscribe("mqtt/FALL_REAL"); // 你要訂閱的 topic
-        }
+      onSuccess: function () {
+        alert("成功連接到 MQTT broker");
+        client.subscribe("mqtt/FALL_REAL");
+      },
+      onFailure: function (error) {
+        alert("MQTT 連線失敗：" + error.errorMessage);
+      }
       });
     </script>
   </head>
   <body>
-    <h3>MQTT Listener V1.0</h3>
+    <h3>MQTT Listener V1.1</h3>
   </body>
 </html>
