@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.3/mqttws31.min.js"></script>
-    <script>
-      var client = new Paho.MQTT.Client("192.168.50.235", 9001, "clientId" + parseInt(Math.random()*1000));
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js"></script>
+  <script>
+    console.log("🌐 WebSocket connecting...");
 
-      client.onMessageArrived = function(message) {
+    var client = new Paho.MQTT.Client("192.168.50.235", 9001, "clientId" + parseInt(Math.random() * 1000));
+
+    client.onMessageArrived = function (message) {
       var msg = message.payloadString;
-    
-      alert("收到MQTT: " + msg); // <-- 用 alert 測試有沒有真的執行這段
-      window.AppInventor.setWebViewString(msg);  // 傳給 App
-      };
+      alert("📥 收到MQTT: " + msg);
+      window.AppInventor.setWebViewString(msg);
+    };
 
-
-      client.connect({
+    client.connect({
       onSuccess: function () {
         alert("✅ 成功連接到 MQTT broker");
         client.subscribe("mqtt/FALL_REAL");
       },
-      onFailure: function (e) {
-        alert("❌ MQTT 連線失敗：" + e.errorMessage);
-        document.body.innerHTML += "<p style='color:red;'>❌ 錯誤：" + e.errorMessage + "</p>";
+      onFailure: function (error) {
+        alert("❌ 連線失敗：" + error.errorMessage);
       }
     });
-    </script>
-  </head>
-  <body>
-    <h3>MQTT Listener V1.2</h3>
-  </body>
+  </script>
+</head>
+<body>
+  <h3>MQTT Listener V2.0</h3>
+</body>
 </html>
