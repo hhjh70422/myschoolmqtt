@@ -6,9 +6,12 @@
       var client = new Paho.MQTT.Client("192.168.50.235", 9001, "clientId" + parseInt(Math.random()*1000));
 
       client.onMessageArrived = function(message) {
-        var msg = message.payloadString;
-        window.AppInventor.setWebViewString(msg);  // 傳回 App Inventor
+      var msg = message.payloadString;
+    
+      alert("收到MQTT: " + msg); // <-- 用 alert 測試有沒有真的執行這段
+      window.AppInventor.setWebViewString(msg);  // 傳給 App
       };
+
 
       client.connect({
         onSuccess: function() {
