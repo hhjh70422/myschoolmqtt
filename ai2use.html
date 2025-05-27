@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/paho-mqtt/mqttws31.min.js"></script>
+    <script>
+      var client = new Paho.MQTT.Client("192.168.50.235", 9001, "clientId" + parseInt(Math.random()*1000));
+
+      client.onMessageArrived = function(message) {
+        var msg = message.payloadString;
+        window.AppInventor.setWebViewString(msg);  // 傳回 App Inventor
+      };
+
+      client.connect({
+        onSuccess: function() {
+          client.subscribe("FALL_REAL"); // 你要訂閱的 topic
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <h3>MQTT Listener</h3>
+  </body>
+</html>
